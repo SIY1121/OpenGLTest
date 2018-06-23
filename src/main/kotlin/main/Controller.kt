@@ -17,8 +17,12 @@ class Controller : Initializable {
     @FXML
     lateinit var swingNode: SwingNode
 
+    companion object {
+        lateinit var panel: GLJPanel
+    }
+
     override fun initialize(location: URL?, resources: ResourceBundle?) {
-        val panel = GLJPanel()
+        panel = GLJPanel()
         panel.addGLEventListener(Listener1())
         swingNode.content = panel
         root.widthProperty().addListener { _, _, n ->
