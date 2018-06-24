@@ -1,11 +1,13 @@
 package main
 
+import com.jogamp.opengl.GLCapabilities
+import com.jogamp.opengl.GLProfile
 import com.jogamp.opengl.awt.GLJPanel
 import javafx.embed.swing.SwingNode
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.layout.BorderPane
-import main.event.Listener1
+import main.event.*
 import java.awt.Dimension
 import java.net.URL
 import java.util.*
@@ -22,8 +24,8 @@ class Controller : Initializable {
     }
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
-        panel = GLJPanel()
-        panel.addGLEventListener(Listener1())
+        panel = GLJPanel(GLCapabilities(GLProfile.get(GLProfile.GL3)))
+        panel.addGLEventListener(T5())
         swingNode.content = panel
         root.widthProperty().addListener { _, _, n ->
             swingNode.content.size = Dimension(n.toInt(), root.height.toInt())

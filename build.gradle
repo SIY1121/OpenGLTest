@@ -1,3 +1,9 @@
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+}
+
 buildscript {
     ext.kotlin_version = '1.2.50'
 
@@ -5,6 +11,7 @@ buildscript {
         mavenLocal()
         mavenCentral()
         maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
@@ -13,10 +20,8 @@ buildscript {
 }
 
 
-plugins {
-    id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.2.50'
-}
+apply plugin: 'java'
+apply plugin: 'org.jetbrains.kotlin.jvm'
 
 group 'space.siy'
 version '1.0-SNAPSHOT'
@@ -53,6 +58,8 @@ dependencies {
 
     runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-windows-amd64"
     runtime "org.jogamp.jogl:jogl-all:2.3.1:natives-windows-i586"
+
+    compile 'com.github.kotlin-graphics:glm:0.01'
 }
 
 compileKotlin {

@@ -2,6 +2,9 @@ package main
 
 import com.jogamp.opengl.GL
 import com.jogamp.opengl.GL2
+import com.jogamp.opengl.util.texture.TextureIO
+import java.io.FileOutputStream
+import java.io.FileWriter
 import java.nio.ByteBuffer
 import java.nio.IntBuffer
 
@@ -57,4 +60,14 @@ fun GL2.UCreateProgram(vtxId: Int, fId: Int, destroyShader: Boolean = true): Int
 
 
     return id
+}
+
+fun GL2.USaveTexture(texId: Int,w : Int,h:Int) {
+    this.glBindTexture(GL2.GL_TEXTURE_2D, texId)
+    val buf = ByteBuffer.allocate(w * h * 3)
+    this.glGetTexImage(GL2.GL_TEXTURE_2D, 0, GL2.GL_BGR, GL2.GL_UNSIGNED_BYTE, buf)
+    val out = FileOutputStream("tex.rgb")
+    out.write(buf.array())
+    out.close()
+    gl.glBindTexture(GL2.GL_TEXTURE_2D,0)
 }

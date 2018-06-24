@@ -29,7 +29,7 @@ class Listener1 : GLEventListener {
         gl.glLoadIdentity()
         gl.glMatrixMode(GL2.GL_MODELVIEW)
         gl.glLoadIdentity()
-        gl.glViewport(0,0,100,100)
+        gl.glViewport(0,0,1000,1000)
 
         val uv = floatArrayOf(
                 1f, 1f,
@@ -67,7 +67,9 @@ class Listener1 : GLEventListener {
         gl.glDrawArrays(GL2.GL_TRIANGLE_FAN, 0, 4)
         gl.glBindFramebuffer(GL2.GL_FRAMEBUFFER,0)
 
-        gl.glUseProgram(0)
+        //gl.glUseProgram(0)
+
+        gl.USaveTexture(textureBufferID,1000,1000)
 
         gl.glMatrixMode(GL2.GL_MODELVIEW)
         gl.glLoadIdentity()
@@ -78,17 +80,20 @@ class Listener1 : GLEventListener {
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT)
 
         gl.glBindTexture(GL2.GL_TEXTURE_2D,textureBufferID)
+        gl.glUniform1i(textureLocation, textureBufferID)
+        gl.glDrawArrays(GL2.GL_TRIANGLE_FAN, 0, 4)
 
-        gl.glBegin(GL2.GL_QUADS)
-        gl.glTexCoord2d(1.0,1.0)
-        gl.glVertex3d(0.5,0.5,0.0)
-        gl.glTexCoord2d(0.0,1.0)
-        gl.glVertex3d(-0.5,0.5,0.0)
-        gl.glTexCoord2d(0.0,0.0)
-        gl.glVertex3d(-0.5,-0.5,0.0)
-        gl.glTexCoord2d(1.0,-1.0)
-        gl.glVertex3d(0.5,-0.5,0.0)
-        gl.glEnd()
+//
+//        gl.glBegin(GL2.GL_QUADS)
+//        gl.glTexCoord2d(1.0,1.0)
+//        gl.glVertex3d(0.5,0.5,0.0)
+//        gl.glTexCoord2d(0.0,1.0)
+//        gl.glVertex3d(-0.5,0.5,0.0)
+//        gl.glTexCoord2d(0.0,0.0)
+//        gl.glVertex3d(-0.5,-0.5,0.0)
+//        gl.glTexCoord2d(1.0,-1.0)
+//        gl.glVertex3d(0.5,-0.5,0.0)
+//        gl.glEnd()
         gl.glBindTexture(GL2.GL_TEXTURE_2D,0)
     }
 
@@ -98,8 +103,8 @@ class Listener1 : GLEventListener {
         gl.glEnable(GL2.GL_TEXTURE)
         gl.glClearColor(0.2f, 0.2f, 0.2f, 1f)
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT)
-        val vertexSource = loadTextFromResource("vertex.shader")
-        val fragmentSource = loadTextFromResource("fragment.glsl")
+        val vertexSource = loadTextFromResource("monocho/vertex.shader")
+        val fragmentSource = loadTextFromResource("monocho/fragment.glsl")
         println(vertexSource)
         program = gl.UCreateProgram(
                 gl.UCreateVertexShader(vertexSource),
