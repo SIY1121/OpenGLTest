@@ -2,6 +2,7 @@ package main
 
 import com.jogamp.opengl.GL3
 import com.jogamp.opengl.util.texture.TextureData
+import java.io.FileOutputStream
 import java.nio.ByteBuffer
 import java.nio.IntBuffer
 
@@ -67,4 +68,20 @@ fun GL3.UCreateProgram(vtxId: Int, fId: Int, destroyShader: Boolean = true): Int
 
 
     return id
+}
+
+fun GL3.UGenFrameBuffer():Int{
+    val buf = IntBuffer.allocate(1)
+    this.glGenFramebuffers(1,buf)
+    return buf.get()
+}
+
+fun GL3.USaveTexture(texId: Int,w : Int,h:Int) {
+    this.glBindTexture(GL3.GL_TEXTURE_2D, texId)
+    val buf = ByteBuffer.allocate(w * h * 3)
+    this.glGetTexImage(GL3.GL_TEXTURE_2D, 0, GL3.GL_BGR, GL3.GL_UNSIGNED_BYTE, buf)
+    val out = FileOutputStream("tex.rgb")
+    out.write(buf.array())
+    out.close()
+    gl.glBindTexture(GL3.GL_TEXTURE_2D,0)
 }

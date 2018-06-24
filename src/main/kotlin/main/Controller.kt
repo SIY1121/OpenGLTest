@@ -25,7 +25,7 @@ class Controller : Initializable {
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
         panel = GLJPanel(GLCapabilities(GLProfile.get(GLProfile.GL3)))
-        panel.addGLEventListener(T5())
+        panel.addGLEventListener(T14())
         swingNode.content = panel
         root.widthProperty().addListener { _, _, n ->
             swingNode.content.size = Dimension(n.toInt(), root.height.toInt())
